@@ -19,6 +19,8 @@ export function TaskList() {
   function handleCreateNewTask() {
     // Crie uma nova task com um id random, não permita criar caso o título seja vazio.
 
+    if (newTaskTitle.length === 0) { return; }
+
     const newTask = {
       id: uuidV4(),
       title: newTaskTitle,
@@ -82,7 +84,13 @@ export function TaskList() {
                 <p>{task.title}</p>
               </div>
 
-              <button type="button" data-testid="remove-task-button" onClick={() => handleRemoveTask(task.id)}>
+              <button
+                type="button"
+                data-testid="remove-task-button"
+                onClick={() => handleRemoveTask(task.id)}
+
+                disabled={newTaskTitle.length === 0}
+              >
                 <FiTrash size={16} />
               </button>
             </li>
